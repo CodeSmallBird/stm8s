@@ -1,0 +1,12 @@
+;	STMicroelectronics Workspace file
+
+[Version]
+Keyword=ST7Workspace-V0.7
+
+[Project0]
+Filename=three_phase.stp
+Dependencies=
+[Options]
+ActiveProject=three_phase
+ActiveConfig=Debug
+AddSortedElements=1
