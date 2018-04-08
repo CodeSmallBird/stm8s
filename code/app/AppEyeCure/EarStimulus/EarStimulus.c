@@ -68,11 +68,13 @@ void EarStimulusPolling(void)
 		else if(EarStimulusMode.DelayTime <6)
 		{
 			close_ear_pwm();
+			//ANDROID_TEST_LOW;
 		}
 		else
 		{
 			EarStimulusMode.DelayTime = 0;
 			open_ear_pwm();
+			//ANDROID_TEST_HIGH;
 		}
 		
 	}
@@ -85,11 +87,14 @@ void EarStimulusPolling(void)
 		else if(EarStimulusMode.DelayTime <4)
 		{
 			close_ear_pwm();
+			
+			//ANDROID_TEST_LOW;
 		}
 		else
 		{
 			EarStimulusMode.DelayTime = 0;
 			open_ear_pwm();
+			//ANDROID_TEST_HIGH;
 		}
 	}
 

@@ -74,7 +74,7 @@ String.6.0=2017,9,12,16,48,8
 String.100.0=$(TargetFName)
 String.101.0=
 String.102.0=
-String.103.0=.\;app\main;common\core;common\core\stm8s_lib\src;app\initialize;app\interrupt;driver\uart;app\protocol;driver\pwm;app\keydeal;driver\ds18b20;app\appeyecure;
+String.103.0=.\;app\main;common\core;common\core\stm8s_lib\src;app\initialize;app\interrupt;app\protocol;driver\pwm;app\keydeal;driver\ds18b20;app\appeyecure;
 
 [Root.Config.0.Settings.2]
 String.2.0=
@@ -102,11 +102,11 @@ String.8.0=
 
 [Root.Config.0.Settings.6]
 String.2.0=Running Linker
-String.3.0=clnk $(ToolsetLibOpts) -o $(OutputPath)$(TargetSName).sm8 -fakeInteger -fakeOutFile$(ProjectSFile).elf -fakeRunConv -fakeStartupcrtsi0.sm8 -fakeSemiAutoGen -fakeVectFilestm8_interrupt_vector.c -fakeVectAddr0x8000 -customMapFile -customMapFile-m$(OutputPath)$(TargetSName).map -customMapAddress -customCfgFile$(OutputPath)$(TargetSName).lkf 
+String.3.0=clnk $(ToolsetLibOpts) -o $(OutputPath)$(TargetSName).sm8 -fakeInteger -fakeLibdriver\ds18b20\ds18b20.lib -fakeLibdriver\uart\$uart.lib -fakeOutFile$(ProjectSFile).elf -fakeRunConv -fakeStartupcrtsi0.sm8 -fakeSemiAutoGen -fakeVectFilestm8_interrupt_vector.c -fakeVectAddr0x8000 -customMapFile -customMapFile-m$(OutputPath)$(TargetSName).map -customMapAddress -customCfgFile$(OutputPath)$(TargetSName).lkf 
 String.3.1=cvdwarf $(OutputPath)$(TargetSName).sm8
 String.4.0=$(OutputPath)$(TargetFName)
 String.5.0=$(OutputPath)$(ProjectSFile).elf $(OutputPath)$(TargetSName).map
-String.6.0=2018,1,19,15,45,2
+String.6.0=2018,4,8,11,51,54
 String.100.0=
 String.101.0=crtsi.st7
 String.102.0=+seg .const -b 0x8080 -m 0x7f80 -n .const -it
@@ -156,7 +156,7 @@ Int.108=0
 String.6.0=2017,9,12,16,48,8
 String.100.0=$(TargetFName)
 String.101.0=
-String.103.0=.\;app\main;common\core;common\core\stm8s_lib\src;app\initialize;app\interrupt;driver\uart;app\protocol;driver\pwm;app\keydeal;driver\ds18b20;app\appeyecure;
+String.103.0=.\;app\main;common\core;common\core\stm8s_lib\src;app\initialize;app\interrupt;app\protocol;driver\pwm;app\keydeal;driver\ds18b20;app\appeyecure;
 
 [Root.Config.1.Settings.2]
 String.2.0=
@@ -292,37 +292,17 @@ String.6.0=2017,9,12,16,48,8
 [Root.Source Files.Source Files\driver]
 ElemType=Folder
 PathName=Source Files\driver
-Child=Root.Source Files.Source Files\driver.Source Files\driver\ds18b20
+Child=Root.Source Files.Source Files\driver.Source Files\driver\pwm
 Next=Root.Source Files.Source Files\app
-
-[Root.Source Files.Source Files\driver.Source Files\driver\ds18b20]
-ElemType=Folder
-PathName=Source Files\driver\ds18b20
-Child=Root.Source Files.Source Files\driver.Source Files\driver\ds18b20.driver\ds18b20\ds18b20.c
-Next=Root.Source Files.Source Files\driver.Source Files\driver\pwm
-
-[Root.Source Files.Source Files\driver.Source Files\driver\ds18b20.driver\ds18b20\ds18b20.c]
-ElemType=File
-PathName=driver\ds18b20\ds18b20.c
 
 [Root.Source Files.Source Files\driver.Source Files\driver\pwm]
 ElemType=Folder
 PathName=Source Files\driver\pwm
 Child=Root.Source Files.Source Files\driver.Source Files\driver\pwm.driver\pwm\pwm.c
-Next=Root.Source Files.Source Files\driver.Source Files\driver\uart
 
 [Root.Source Files.Source Files\driver.Source Files\driver\pwm.driver\pwm\pwm.c]
 ElemType=File
 PathName=driver\pwm\pwm.c
-
-[Root.Source Files.Source Files\driver.Source Files\driver\uart]
-ElemType=Folder
-PathName=Source Files\driver\uart
-Child=Root.Source Files.Source Files\driver.Source Files\driver\uart.driver\uart\uart.c
-
-[Root.Source Files.Source Files\driver.Source Files\driver\uart.driver\uart\uart.c]
-ElemType=File
-PathName=driver\uart\uart.c
 
 [Root.Source Files.Source Files\app]
 ElemType=Folder

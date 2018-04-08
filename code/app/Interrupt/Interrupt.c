@@ -38,19 +38,34 @@ void Sys_tick_init(void)
 	TIM4_Config();
 }
 //1ms
+#if 1
 void TimerInterrupt_SysTicke_Func(void)
 {
-static u8 sys_tick = 0;
+	static u8 test = 0;
+	static u8 sys_tick = 0;
 	sys_tick++;
 
 	if(EarStimulusMode.Switch == EAR_STIMULUS_ON)
 	{
 		EarStimulusMode.ChangeTick++;
+		/*if(EarStimulusMode.ChangeTick % 5 == 0)
+		{
+			if(test == 0)
+			{
+					ANDROID_TEST_HIGH;
+					test  = 1;
+			}
+			else
+			{
+				ANDROID_TEST_LOW;
+				test  = 0;
+			}
+		}*/
 		if(EarStimulusMode.ChangeTick == 1)
 		{ 
-		
 			PWM2_LOW;
 			PWM3_HIGH;
+			ANDROID_TEST_HIGH;
 			SET_PWM1_DUTY(5);
 		}
 		else if(EarStimulusMode.ChangeTick > 30)
@@ -58,6 +73,7 @@ static u8 sys_tick = 0;
 		
 			//SET_PWM1_DUTY(0);
 			PWM2_HIGH;
+			ANDROID_TEST_LOW;
 			if(EarStimulusMode.ChangeTick == 1001)
 			{
 				PWM3_LOW;
@@ -104,6 +120,89 @@ static u8 sys_tick = 0;
 	}
 }
 
+#else
+void TimerInterrupt_SysTicke_Func(void)
+{
+static u8 test = 0;
+static u8 sys_tick = 0;
+	sys_tick++;
+
+	if(EarStimulusMode.Switch == EAR_STIMULUS_ON)
+	{
+		EarStimulusMode.ChangeTick++;
+		/*if(EarStimulusMode.ChangeTick % 5 == 0)
+		{
+			if(test == 0)
+			{
+					ANDROID_TEST_HIGH;
+					test  = 1;
+			}
+			else
+			{
+				ANDROID_TEST_LOW;
+				test  = 0;
+			}
+		}*/
+		if(EarStimulusMode.ChangeTick == 1)
+		{ 
+		
+			PWM2_LOW;
+			PWM3_HIGH;
+			ANDROID_TEST_HIGH;
+			SET_PWM1_DUTY(5);
+		}
+		else if(EarStimulusMode.ChangeTick > 30)
+		{
+		
+			//SET_PWM1_DUTY(0);
+			PWM2_HIGH;
+			ANDROID_TEST_LOW;
+			if(EarStimulusMode.ChangeTick == 1001)
+			{
+				PWM3_LOW;
+				//SET_PWM1_DUTY(5);
+			}
+			else if(EarStimulusMode.ChangeTick > 1030)
+			{
+			
+				//SET_PWM1_DUTY(0);
+				PWM3_HIGH;
+				if(EarStimulusMode.ChangeTick > 2000)
+				{
+					EarStimulusMode.ChangeTick = 0;
+				}
+			}
+		}
+
+	}
+
+
+	
+	if(sys_tick<4)
+		return;
+	sys_tick = 0;
+
+	Project.SysTickeCount ++;
+	//	4MS
+	Project.SysTickeCount4Ms ++;
+	if(Project.SysTickeCount & _B0_)
+	{// 8MS
+		Project.SysTickeCount8Ms ++;
+	}	
+	else if(Project.SysTickeCount & _B1_)
+	{// 16MS
+		Project.SysTickeCount16Ms ++;	
+	}
+	else if(Project.SysTickeCount & _B2_)
+	{// 32MS
+		Project.SysTickeCount32Ms ++;	
+	}
+	else if(Project.SysTickeCount & _B3_)
+	{// 64MS
+		Project.SysTickeCount64Ms ++;	
+	}
+}
+#endif
 
 
 void InterruptPolling(void)

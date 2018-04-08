@@ -1,6 +1,7 @@
 #ifndef _PROTOCOL_H_
 #define _PROTOCOL_H_
 
+
 #ifndef _COMMON_H_
 	#include"Common.h"
 #endif
@@ -10,12 +11,14 @@
 /*---------------------------------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------------------------------*/
 
+#define COM_ANDROID_HEADER1					0xAA
+#define COM_ANDROID_HEADER2					0xAA
 
-#define ANDROID_UART_SEND_LENGTH			30
-#define ANDROID_UART_REVC_LENGTH			30
-#define ANDROID_REVC_DATA_SIZE				20
 
-#define ANDROID_UART_REVC_FIFO_LENGTH		20
+#define COM_ANDROID_TAIL1					0x55
+#define COM_ANDROID_TAIL2					0x55
+
+
 
 
 /*		数据接收状态	*/
@@ -36,48 +39,6 @@ enum{
 	ANDROID_INIT_END
 };
 
-/*		蓝牙工作模式	*/
-enum{
-	ANDROID_MODE_DISCONNECT,
-	ANDROID_MODE_PAIRING,
-	ANDROID_MODE_CONNECT,
-	ANDROID_MODE_WORKING
-};
-
-/*		蓝牙电话状态	*/
-enum{
-	TEL_STATE_DIALED_CALLS,
-	TEL_STATE_RECIVED_CALLS,
-	TEL_STATE_HOST_CALL,
-	TEL_STATE_HOST_MUSIC,
-	TEL_STATE_PHONEBOOK
-};
-
-
-typedef struct{
-	U8 Mode;
-	U8 Time;
-	U8 State;
-	U8 SendState;
-	U8 RevcState;
-	struct{
-		U8 	Data[ANDROID_UART_SEND_LENGTH];
-		U8	Read;
-		U8	Write;
-		U8 	Length;
-	}Send;
-	struct{
-		U8 	Data[ANDROID_UART_REVC_LENGTH];
-		U8	Read;
-		U8	Write;
-		U8 	Length;
-	}Rece;	
-	struct{
-		U8 	Data[ANDROID_UART_REVC_FIFO_LENGTH];
-		U8 	Length;
-	}ReceFifo;
-
-}ANDROID_UART_FORMAT;
 
 enum
 {
@@ -107,11 +68,11 @@ enum
 
 
 
-EXTERN ANDROID_UART_FORMAT AndroidUart;
-EXTERN void AndroidUartInit(void);
+//EXTERN ANDROID_UART_FORMAT AndroidUart;
+//EXTERN void AndroidUartInit(void);
 EXTERN void AndriodPolling(void);
-EXTERN U8 AndroidUartPushReceiveByte(U8 Data);
-EXTERN U8 AndroidUartPopSendByte(U8 *Data);
+//EXTERN U8 AndroidUartPushReceiveByte(U8 Data);
+//EXTERN U8 AndroidUartPopSendByte(U8 *Data);
 EXTERN void ProtocolSend(u8 cmd_send);
 
 /*---------------------------------------------------------------------------------------------------*/

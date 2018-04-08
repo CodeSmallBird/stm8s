@@ -1,5 +1,6 @@
 #include"uart.h"
 
+ANDROID_UART_FORMAT AndroidUart;
 
 #if defined(DEBUG_USE_UART)
 char DebugToUart(char c)
@@ -71,6 +72,81 @@ void uart_init(void)
 
 }
 
+/*-----------------------------------------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------------------------------------*/
+
+void AndroidUartInit(void)
+{
+	ie_memset(&AndroidUart, 0, sizeof(AndroidUart));
+}
+/*-----------------------------------------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------------------------------------*/
+
+
+
+/*-----------------------------------------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------------------------------------*/
+U8 AndroidUartPushSendByte(U8 Data)
+{
+	U8 Inter;
+	U8 Result;
+
+	Result = FALSE;
+	DISABLE_INTERRUPT;
+	if(AndroidUart.Send.Length < sizeof(AndroidUart.Send.Data))
+	{
+		AndroidUart.Send.Data[AndroidUart.Send.Write++] = Data;
+		if(AndroidUart.Send.Write >= sizeof(AndroidUart.Send.Data))
+			AndroidUart.Send.Write = 0;
+		AndroidUart.Send.Length++;
+		Result = TRUE;
+	}
+	ENABLE_INTERRUPT;
+	return Result;
+}
+U8 AndroidUartPopSendByte(U8 *Data)
+{
+	if(AndroidUart.Send.Length)
+	{	
+		*Data = AndroidUart.Send.Data[AndroidUart.Send.Read++];
+		if(AndroidUart.Send.Read >= sizeof(AndroidUart.Send.Data))
+			AndroidUart.Send.Read = 0;
+		AndroidUart.Send.Length--;
+		return TRUE;
+	}
+	return FALSE;
+}
+
+U8 AndroidUartPushReceiveByte(U8 Data)
+{
+	if(AndroidUart.Rece.Length < sizeof(AndroidUart.Rece.Data))
+	{
+		AndroidUart.Rece.Data[AndroidUart.Rece.Write++] = Data;
+		if(AndroidUart.Rece.Write >= sizeof(AndroidUart.Rece.Data))
+			AndroidUart.Rece.Write = 0;
+		AndroidUart.Rece.Length++;
+		return TRUE;
+	}
+	return FALSE;
+}
+U8 AndroidUartPopReceiveByte(U8 *Data)
+{
+	U8 Inter;
+	U8 Result;
+
+	Result = FALSE;
+	DISABLE_INTERRUPT;
+	if(AndroidUart.Rece.Length)
+	{	
+		*Data = AndroidUart.Rece.Data[AndroidUart.Rece.Read++];
+		if(AndroidUart.Rece.Read >= sizeof(AndroidUart.Rece.Data))
+			AndroidUart.Rece.Read = 0;
+		AndroidUart.Rece.Length--;
+		Result = TRUE;
+	}
+	ENABLE_INTERRUPT;
+	return Result;
+}
 
 
 

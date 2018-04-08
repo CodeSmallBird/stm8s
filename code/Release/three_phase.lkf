@@ -50,9 +50,7 @@ crtsi0.sm8
 
 # Object files list - section reserved for STVD
 #<BEGIN OBJECT_FILES>
-Release\ds18b20.o
 Release\pwm.o
-Release\uart.o
 Release\appeyecure.o
 Release\interrupt.o
 Release\initialize.o

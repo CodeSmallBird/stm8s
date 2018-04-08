@@ -108,7 +108,7 @@ void set_time1_ch3_duty(u16 pwm_duty)
 	}
 	else
 	{
-		temp_duty = 10;//(pwm_duty*TIM1_PERIOD)/100;//STIMULUS_MAX;
+		temp_duty = pwm_duty;//(pwm_duty*TIM1_PERIOD)/100;//STIMULUS_MAX;
 		if(temp_duty >= TIM1_PERIOD)
 		{
 			temp_duty = TIM1_PERIOD+1;

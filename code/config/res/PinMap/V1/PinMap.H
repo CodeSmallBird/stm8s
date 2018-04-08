@@ -201,7 +201,7 @@ TEM_ADC_PIN ---PD3--44
 /*-----------------------------------------------------------------------------
 SYS_POWER_PIN ---PD4--21
 ------------------------------------------------------------------------------*/
-#define ANDROID_POWER_PIN				_B4_
+#define ANDROID_POWER_PIN				_B0_ //_B4_ --暂时用D0替代
 //推挽输出，10MHZ
 #define ANDROID_POWER_INIT				do{GPIOD->DDR |= ANDROID_POWER_PIN;\
 										GPIOD->CR1 |= ANDROID_POWER_PIN;\
@@ -214,6 +214,25 @@ SYS_POWER_PIN ---PD4--21
 
 #define  ANDROID_POWER_ON				ANDROID_POWER_HIGH
 #define  ANDROID_POWER_OFF				ANDROID_POWER_LOW
+
+
+/*-----------------------------------------------------------------------------
+SYS_TEST_PIN ---PD4--21
+------------------------------------------------------------------------------*/
+#define ANDROID_TEST_PIN				_B4_
+//推挽输出，10MHZ
+#define ANDROID_TEST_INIT				do{GPIOD->DDR |= ANDROID_TEST_PIN;\
+										GPIOD->CR1 |= ANDROID_TEST_PIN;\
+										GPIOD->CR2 |= ANDROID_TEST_PIN;\
+										}\
+										while(0)	
+										
+#define ANDROID_TEST_HIGH				(GPIOD->ODR |= ANDROID_TEST_PIN)
+#define ANDROID_TEST_LOW				(GPIOD->ODR &= ~ANDROID_TEST_PIN)
+
+#define  ANDROID_TEST_ON				ANDROID_TEST_HIGH
+#define  ANDROID_TEST_OFF				ANDROID_TEST_LOW
+
 
 
 #endif /* _PIN_MAP_H_ */
